@@ -35,7 +35,12 @@ export default function StrapiServices() {
     <div className="services-grid">
       <h2>Our Services from Strapi</h2>
       {services.length === 0 ? (
-        <p>No services found. Create services in Strapi admin.</p>
+        <div className="text-center py-8">
+          <p className="text-gray-600 mb-4">No services found yet.</p>
+          <p className="text-sm text-gray-500">
+            Create services in your Strapi admin panel to see them here.
+          </p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((service) => (

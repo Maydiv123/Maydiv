@@ -26,7 +26,9 @@ export default function StrapiExample() {
         sort: ['createdAt:desc']
       });
       
-      setPosts(response.data || []);
+      // Handle both Strapi v4 format (with attributes) and direct format
+      const postsData = response.data || [];
+      setPosts(postsData);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -51,15 +53,11 @@ export default function StrapiExample() {
         <div className="posts-grid">
           {posts.map((post) => (
             <div key={post.id} className="post-card">
-              <h3>{post.attributes?.title}</h3>
-              <p>{post.attributes?.description}</p>
-              {post.attributes?.image?.data && (
-                <img 
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.attributes.image.data.attributes.url}`}
-                  alt={post.attributes.title}
-                  className="post-image"
-                />
-              )}
+              <h3>{post.description || 'Untitled Post'}</h3>
+              <p>{post.text || 'No content available'}</p>
+              <small className="text-gray-500">
+                Published: {new Date(post.publishedAt).toLocaleDateString()}
+              </small>
             </div>
           ))}
         </div>

@@ -1,7 +1,7 @@
 // Server-side Strapi configuration
 const strapiConfig = {
-  url: process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337',
-  apiToken: process.env.STRAPI_API_TOKEN,
+  url: process.env.NEXT_PUBLIC_STRAPI_URL || 'https://strapi-production-a6a4.up.railway.app',
+  apiToken: process.env.STRAPI_API_TOKEN || '74b6b8cb3a28443005fd6bebd9f4a11abc7254f6b0ac6632bced5b7404db3d8265f46d33687f425e36a78e64dc18a4b9876892f593c7c47047c494e14c82e9f25b20e78d74c4fde784f123100898ae33c768bec9527a74c2c601973515eeaf5d95313bfb9e8b36d67c91422f3cef1cbe324714e8eee1573674f6461a1a63f368',
   prefix: '/api',
 };
 
@@ -10,9 +10,7 @@ export async function fetchFromStrapi(endpoint, options = {}) {
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
-      ...(process.env.STRAPI_API_TOKEN && {
-        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
-      }),
+      Authorization: `Bearer ${strapiConfig.apiToken}`,
     },
   };
 
